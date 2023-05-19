@@ -1,0 +1,35 @@
+<template>
+  <div className="forgot-password-container">
+    <div class="account section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="login-form border p-5">
+              <div class="text-center heading">
+                <h3 class="mb-2 h2">..</h3>
+                <p class="lead">
+                 ..
+                </p>
+              </div>
+
+              <form action="#">
+                <div class="form-group mb-4">
+                  <label for="#">..</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="..." />
+                </div>
+                <a
+                  href="#"
+                  class="btn btn-main mt-3 btn-block"
+                  >Request OTP</a
+                >
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
