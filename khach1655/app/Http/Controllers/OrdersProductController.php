@@ -43,8 +43,25 @@ class OrdersProductController extends Controller
     public function countStatusOrders()
     {
         try {
-            $count = OrdersProduct::where('status', false)->count();
-            return response()->json(['count' => $count], 200);
+            $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+            $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+
+            $count = OrdersProduct::where('status', false)
+                ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->count();
+
+            $startOfPreviousWeek = Carbon::now()->subWeek()->startOfWeek()->toDateString();
+            $endOfPreviousWeek = Carbon::now()->subWeek()->endOfWeek()->toDateString();
+
+            $previousWeekCount = OrdersProduct::where('status', false)
+                ->whereBetween('created_at', [$startOfPreviousWeek, $endOfPreviousWeek])
+                ->count();
+
+
+            $percentageChange = $count - $previousWeekCount;
+
+
+            return response()->json(['count' => $count, 'percentageChange' => $percentageChange], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -59,7 +76,29 @@ class OrdersProductController extends Controller
                 ->sum(function ($order) {
                     return (float) $order->TotalPay;
                 });
-            return response()->json(['totalPay' => $totalPay], 200);
+            $yesterday = Carbon::yesterday()->toDateString();
+            $totalPayYesterday = OrdersProduct::whereDate('created_at', $yesterday)
+                ->where('status', false)
+                ->get()
+                ->sum(function ($order) {
+                    return (float) $order->TotalPay;
+                });
+
+            if ($totalPayYesterday != 0) {
+                $percentageChange = (($totalPay - $totalPayYesterday) / $totalPayYesterday) * 100;
+            }
+            elseif ($totalPayYesterday === 0 && $totalPay === 0 ){
+                $percentageChange = 0;
+
+            }
+            else{
+                $percentageChange = 100;
+
+            }
+            return response()->json([
+                'totalPayToday' => $totalPay,
+                'percentageChange' => $percentageChange
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -76,8 +115,27 @@ class OrdersProductController extends Controller
                 ->sum(function ($order) {
                     return (float) $order->TotalPay;
                 });
+            $startOfPreviousWeek = Carbon::now()->subWeek()->startOfWeek()->toDateString();
+            $endOfPreviousWeek = Carbon::now()->subWeek()->endOfWeek()->toDateString();
+            $totalPayPreviousWeek = OrdersProduct::whereBetween('created_at', [$startOfPreviousWeek, $endOfPreviousWeek])
+                ->where('status', false)
+                ->get()
+                ->sum(function ($order) {
+                    return (float) $order->TotalPay;
+                });
+            $percentageChange = 0;
+            if ($totalPayPreviousWeek != 0) {
+                $percentageChange = (($totalPay - $totalPayPreviousWeek) / $totalPayPreviousWeek) * 100;
+            }
+            else{
+                $percentageChange = 100;
+            }
 
-            return response()->json(['totalPay' => $totalPay], 200);
+
+            return response()->json([
+                'totalPayThisWeek' => $totalPay,
+                'percentageChange' => $percentageChange
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -95,11 +153,33 @@ class OrdersProductController extends Controller
                     return (float) $order->TotalPay;
                 });
 
-            return response()->json(['totalPay' => $totalPay], 200);
+            $startOfPreviousMonth = Carbon::now()->subMonth()->startOfMonth()->toDateString();
+            $endOfPreviousMonth = Carbon::now()->subMonth()->endOfMonth()->toDateString();
+
+            $totalPayPreviousMonth = OrdersProduct::whereBetween('created_at', [$startOfPreviousMonth, $endOfPreviousMonth])
+                ->where('status', false)
+                ->get()
+                ->sum(function ($order) {
+                    return (float) $order->TotalPay;
+                });
+
+            $percentageChange = $this->percentageChange($totalPay,$totalPayPreviousMonth );
+
+            return response()->json(['totalPay' => $totalPay, 'percentageChange' => $percentageChange], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+
+    private function percentageChange($currentValue, $previousValue)
+    {
+        if ($previousValue != 0) {
+            return (($currentValue - $previousValue) / $previousValue) * 100;
+        }
+
+        return 100;
+    }
+
 
     public function getAllOrdersAndUsers()
     {

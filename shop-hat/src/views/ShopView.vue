@@ -130,10 +130,11 @@
 
             <section class="widget widget-popular mb-5">
               <h3 class="widget-title mb-4 h4">Sản phẩm hot</h3>
-              <a class="popular-products-item media" href="/product-single" v-for="hot in hotHit">
-                <img :src="hot.image" alt="" class="img-fluid mr-4" />
-                <div class="media-body">
-                  <h6>Contrast <br />{{hot.NameProducts}}</h6>
+              <a class="popular-products-item media" href="#" v-for="hot in hotHit">
+            
+                <img :src="hot.image" alt="" class="img-fluid mr-4" @click="goToProductDetails(hot.id)"/>
+                <div class="media-body"  @click="goToProductDetails(hot.id)">
+                  <h6 >Contrast <br />{{hot.NameProducts}}</h6>
                   <span class="price">{{formatCurrency(hot.Price)}}</span>
                 </div>
               </a>
@@ -214,7 +215,9 @@ export default {
 
       this.fetchProducts(this.selectedCategoryId);
     },
-
+    async goToProductDetails(productId) {
+      await this.$router.push({ name: 'ProductDetailsView', params: { id: productId } });
+    },
 
     formatCurrency(value) {
       const formatter = new Intl.NumberFormat('vi-VN', {

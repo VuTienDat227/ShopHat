@@ -33,8 +33,10 @@ class CategoryController extends Controller
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->storeAs('public/images', $imageName);
+            
             $validatedData['image'] = $imageName;
         }
+        
         // Create the product
         $category = Category::create($validatedData);
 

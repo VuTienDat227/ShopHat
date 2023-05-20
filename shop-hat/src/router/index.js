@@ -16,6 +16,7 @@ import AdminProduct from '../pages/admin/product.vue';
 import AdminCategory from '../pages/admin/category.vue';
 import AdminBillInfo from '../pages/admin/billInfo.vue';
 import AdminLogin from '../pages/admin/AdminLogin.vue';
+import AboutUs from '../views/AboutUs.vue'
 import axios from '@/axios';
 
 const routers = [...admin];
@@ -121,6 +122,19 @@ const router = createRouter({
                     path: 'ForgotPassword',
                     name:'ForgotPassword',
                     component: ForgotPasswordView,
+                    beforeEnter: (to, from, next) => {
+                        const isLoggedIn = localStorage.getItem('isLoggedIn');
+                        if (isLoggedIn) {
+                            next();
+                        } else {
+                            next('/Login');
+                        }
+                    },
+                },
+                {
+                    path: 'AboutUs',
+                    name:'AboutUs',
+                    component: AboutUs,
                     beforeEnter: (to, from, next) => {
                         const isLoggedIn = localStorage.getItem('isLoggedIn');
                         if (isLoggedIn) {

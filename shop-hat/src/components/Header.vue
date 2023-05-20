@@ -12,7 +12,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
       <RouterLink
         class="navbar-brand font-weight-bold"
         to="/"
-        >VUE-Shop
+        >HATSTORE
       </RouterLink>
       <button
         class="navbar-toggler"
@@ -32,15 +32,16 @@ import 'bootstrap/dist/js/bootstrap.min.js';
             <RouterLink
               class="nav-link"
               to="/"
-              >Home
+              >Trang chủ
             </RouterLink>
           </li>
           <li class="nav-item">
-            <a
+            <RouterLink
               class="nav-link"
-              href="#"
-              >About Us</a
-            >
+              to="/AboutUs"
+              >Về chúng tôi
+            </RouterLink>
+            
           </li>
 
           <li class="nav-item dropdown dropdown-slide">
@@ -53,14 +54,14 @@ import 'bootstrap/dist/js/bootstrap.min.js';
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false">
-              Pages.
+              Pages
             </a>
             <ul
               class="dropdown-menu"
               aria-labelledby="navbarDropdown4">
-              <li><a href="#">About Us</a></li>
+              <li><a href="#">Về chúng tôi</a></li>
               <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="#">Liên hệ</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown dropdown-slide">
@@ -89,14 +90,14 @@ import 'bootstrap/dist/js/bootstrap.min.js';
                 <RouterLink
                   class="nav-link"
                   to="/checkout"
-                  >Checkout Page
+                  >Thanh toán
                 </RouterLink>
               </li>
               <li>
                 <RouterLink
                   class="nav-link"
                   to="/CartView"
-                  >Cart Page
+                  >Giỏ hàng
                 </RouterLink>
               </li>
             </ul>
@@ -112,7 +113,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false">
-              Account.
+              Tài khoản
             </a>
             <ul
               class="dropdown-menu"
@@ -122,21 +123,21 @@ import 'bootstrap/dist/js/bootstrap.min.js';
                 <RouterLink
                   class="nav-link"
                   :to="{ name: 'Login' }"
-                  >Login Page
+                  >Đăng nhập
                 </RouterLink>
               </li>
               <li>
                 <RouterLink
                   class="nav-link"
                   to="/signup"
-                  >SignUp Page
+                  >Đăng ký
                 </RouterLink>
               </li>
               <li>
                 <RouterLink
                   class="nav-link"
                   to="/forgotpassword"
-                  >Forgot Password
+                  >Quên mật khẩu
                 </RouterLink>
               </li>
             </ul>
@@ -148,7 +149,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
                 <a
                   class="nav-link logout"
                   @click="logout"
-                  >Logout</a
+                  >Đăng xuất</a
                 >
               </li>
             </ul>
@@ -217,6 +218,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
             data-toggle="dropdown"
             data-hover="dropdown">
             <i class="tf-ion-android-cart"></i>
+            <span class="cart-count">{{ cart.length }}</span>
           </a>
           <div class="dropdown-menu cart-dropdown">
             <div
@@ -266,7 +268,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
                   href="#"
                   class="btn btn-small btn-main btn-block"
                   :disabled="isEmptyCart"
-                  >Checkout</a>
+                  >Thanh toán</a>
                 </router-link>
 
               </div>
@@ -493,3 +495,15 @@ export default {
   }
 };
 </script>
+<style scoped>
+.cart-count {
+  position: absolute;
+  top: -18px;
+  right: -1px;
+  background-color: #eee;
+  color: #000;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 50%;
+}
+</style>

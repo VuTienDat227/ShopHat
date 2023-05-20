@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Carbon;
 
 class UserLoginController extends Controller
 {
@@ -29,9 +30,20 @@ class UserLoginController extends Controller
     public function getAllUsers()
     {
         try {
-            $users = UserLogin::where('RoleId', 1)->get();
+            $today = Carbon::now()->toDateString();
+            $users = UserLogin::whereDate('created_at', $today)
+                ->where('RoleId', 1)
+                ->get();
             $userCount = $users->count();
-            return response()->json(['userCount' => $userCount], 200);
+            $yesterday = Carbon::yesterday()->toDateString();
+
+            $usersLast = UserLogin::whereDate('created_at', $yesterday)
+                ->where('RoleId', 1)
+                ->get();
+            $last = $usersLast->count();
+
+            $totalUser = $userCount - $last;
+            return response()->json(['userCount' => $userCount,'changeCount' => $totalUser], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

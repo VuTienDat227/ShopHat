@@ -1,10 +1,10 @@
 <template>
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-        <AdminSideBar />
-      </div>
-      <div class="col py-3">
+  <div class="wrapper">
+    <NavBar/>
+    <AdminSideBar/>
+    <div class="content-wrapper">
+
+      <div class="content">
         <router-view></router-view>
       </div>
     </div>
@@ -13,12 +13,31 @@
 
 <script>
 import AdminSideBar from '@/components/AdminSideBar.vue';
+import NavBar from "@/components/NavBar.vue";
+import { useRoute } from 'vue-router';
 
 export default {
   components: {
     AdminSideBar,
+    NavBar
+  },
+
+  data(){
+    return {
+      currentRoute: {
+        title: 'Trang chủ',
+      },
+    }
+  },
+
+  methods: {
+
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.min-height-250.bg-primary.position-absolute.w-100 {
+  min-height: 100px !important;
+}
+</style>

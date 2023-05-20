@@ -23,10 +23,10 @@
                     <td>{{ bill.user.FullName }}</td>
                     <td>{{ bill.user.PhoneNumber }}</td>
                     <td>{{ bill.user.Address }}</td>
-                    <td>{{ bill.TotalPay }}</td>
+                    <td>{{ formatCurrency(bill.TotalPay) }}</td>
                   <td>
-                    <span v-if="bill.Status === 0" class="aler alert-success">Đã hoàn thành</span>
-                    <span v-else>Chưa hoàn thành</span>
+                    <span v-if="bill.Status === 0" class="text-success">Đã hoàn thành</span>
+                    <span v-else class="text-danger">Chưa hoàn thành</span>
                   </td>
 
                 </tr>
@@ -39,6 +39,10 @@
 <style>
 .btn {
     font-size: 16px;
+}
+
+.pagination a{
+  display: flex !important;
 }
 </style>
 
@@ -317,5 +321,14 @@ export default {
             });
           });
     },
+  methods:{
+    formatCurrency(value) {
+      const formatter = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+      });
+      return formatter.format(value);
+    },
+  }
 }
 </script>

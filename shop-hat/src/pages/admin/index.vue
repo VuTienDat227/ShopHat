@@ -18,7 +18,7 @@
             </div>
             <div class="col-4 text-end">
               <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                <i class="fa-solid fa-list-ol"></i>
+                <i class="fa-solid fa-list-ol iconList"></i>
               </div>
             </div>
           </div>
@@ -35,9 +35,13 @@
                 <h5 class="font-weight-bolder">
                   {{ getUserAllAuth }}
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+3%</span>
-                  lần cuối
+                <p class="mb-0" v-if="percentageChangeUser > 0">
+                  <span class="text-success text-sm font-weight-bolder">+{{percentageChangeUser}} thành viên</span>
+                  so với lần cuối
+                </p>
+                <p class="mb-0" v-else>
+                  <span class="text-danger text-sm font-weight-bolder">{{percentageChangeUser}} thành viên</span>
+                  so với lần cuối
                 </p>
               </div>
             </div>
@@ -60,9 +64,13 @@
                 <h5 class="font-weight-bolder">
                   {{ countGetOrders }}
                 </h5>
-                <p class="mb-0">
-                  <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                  tổng
+                <p class="mb-0" v-if="this.percentageChangeCart > 0">
+                  <span class="text-success text-sm font-weight-bolder">+{{percentageChangeCart}}</span>
+                 tăng tổng tuần trước
+                </p>
+                <p class="mb-0" v-else>
+                  <span class="text-danger text-sm font-weight-bolder">{{percentageChangeCart}}</span>
+                 giảm tổng tuần trước
                 </p>
               </div>
             </div>
@@ -88,8 +96,15 @@
                 <h5 class="font-weight-bolder">
                   {{formatCurrency(calculateTotal)}}
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+5%</span> so với hôm qua
+
+                <p class="mb-0" v-if="this.percentageChangeToday > 0">
+                  <span class="text-success text-sm font-weight-bolder">+{{percentageChangeToday}}%</span> tăng so với hôm qua
+                </p>
+                <p class="mb-0" v-else-if="this.percentageChangeToday === 0">
+                  <span class="text-success text-sm font-weight-bolder">+100%</span> tăng so với hôm qua
+                </p>
+                <p class="mb-0" v-else>
+                  <span class="text-danger text-sm font-weight-bolder">{{percentageChangeToday}}%</span> giảm so với hôm qua
                 </p>
               </div>
             </div>
@@ -112,8 +127,14 @@
                 <h5 class="font-weight-bolder">
                   {{formatCurrency(calculateTotalPayThisWeek)}}
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+51%</span> so với tuần qua
+                <p class="mb-0" v-if="this.percentageChangeWeek > 0">
+                  <span class="text-success text-sm font-weight-bolder">+{{percentageChangeWeek}}%</span> tăng so với tuần qua
+                </p>
+                <p class="mb-0" v-else-if="this.percentageChangeWeek === 0">
+                  <span class="text-success text-sm font-weight-bolder">+100%</span> tăng so với tuần qua
+                </p>
+                <p class="mb-0" v-else>
+                  <span class="text-success text-sm font-weight-bolder">-{{percentageChangeWeek}}%</span> giảm so với tuần qua
                 </p>
               </div>
             </div>
@@ -136,8 +157,15 @@
                 <h5 class="font-weight-bolder">
                   {{formatCurrency(calculateTotalPayThisMonth)}}
                 </h5>
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+10%</span> so với tháng qua
+
+                <p class="mb-0" v-if="this.percentageChangeMonth > 0">
+                  <span class="text-success text-sm font-weight-bolder">+{{percentageChangeMonth}}%</span> tăng so với tháng qua
+                </p>
+                <p class="mb-0" v-else-if="this.percentageChangeMonth === 0">
+                  <span class="text-success text-sm font-weight-bolder">+100%</span> tăng so với tuần qua
+                </p>
+                <p class="mb-0" v-else>
+                  <span class="text-danger text-sm font-weight-bolder">-{{percentageChangeMonth}}%</span> giảm so với tháng qua
                 </p>
               </div>
             </div>
@@ -166,6 +194,11 @@ export default {
       countGetOrders: null,
       calculateTotal: null,
       calculateTotalPayThisWeek: null,
+      percentageChangeWeek: null,
+      percentageChangeToday: null,
+      percentageChangeMonth: null,
+      percentageChangeCart: null,
+      percentageChangeUser: null,
       calculateTotalPayThisMonth: null,
     }
   },
@@ -178,22 +211,29 @@ export default {
     axios.get("/getUserAllAuth")
         .then((res) => {
           this.getUserAllAuth = res.data.userCount;
+          this.percentageChangeUser = res.data.changeCount;
         });
     axios.get("/countGetOrders")
         .then((res) => {
           this.countGetOrders = res.data.count;
+          this.percentageChangeCart = res.data.percentageChange;
         });
     axios.get("/calculateTotal")
         .then((res) => {
-          this.calculateTotal = res.data.totalPay;
+          this.calculateTotal = res.data.totalPayToday;
+          this.percentageChangeToday = res.data.percentageChange;
+
         });
     axios.get("/calculateTotalPayThisWeek")
         .then((res) => {
-          this.calculateTotalPayThisWeek = res.data.totalPay;
+          this.calculateTotalPayThisWeek = res.data.totalPayThisWeek;
+          this.percentageChangeWeek = res.data.percentageChange;
+          console.log(this.percentageChangeWeek);
         });
     axios.get("/calculateTotalPayThisMonth")
         .then((res) => {
           this.calculateTotalPayThisMonth = res.data.totalPay;
+          this.percentageChangeMonth = res.data.percentageChange;
         });
   },
   methods:{
@@ -212,5 +252,9 @@ export default {
 i{
   font-size: 3em;
   opacity: 0.5;
+}
+.iconList{
+  font-size: 1em;
+
 }
 </style>

@@ -51,7 +51,6 @@ body {
 
 p {
   font-family: "Source Sans Pro", sans-serif;
-  color: #757575;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -72,9 +71,7 @@ h6, .h6 {
   font-size: 16px;
 }
 
-.wrapper {
-  padding: 0px 100px;
-}
+
 
 a,
 button {
@@ -358,7 +355,7 @@ a.text-primary:hover {
 }
 
 .content * {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .content h1,
@@ -387,7 +384,7 @@ a.text-primary:hover {
 
 .content ul li::before {
   position: absolute;
-  content: "\f363";
+  content: "";
   font-family: "therichpost-font";
   font-size: 20px;
   left: 0;
@@ -413,11 +410,9 @@ a.text-primary:hover {
 }
 
 .content table thead {
-  background: #707070;
 }
 
 .content table tbody {
-  background: #757575;
 }
 
 .content table tbody td {

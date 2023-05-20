@@ -5,11 +5,11 @@
         <div class="row">
           <div class="col-md-6 col-lg-4 col-sm-6 mb-5 mb-lg-0 text-center text-sm-left mr-auto">
             <div class="footer-widget">
-              <h4 class="mb-4">Hat-Shop</h4>
+              <h4 class="mb-4">HATSTORE</h4>
               <p class="lead">Nơi thể hiển theo phong cách của bạn!</p>
 
               <div class="">
-                <p class="mb-0"><strong>Địa điểm : </strong>Hà Nội</p>
+                <p class="mb-0"><strong>Địa chỉ : </strong>Số 1111, Đống Đa, Hà Nội</p>
                 <p><strong>Email hỗ trợ : </strong> support@email.com</p>
               </div>
             </div>
@@ -58,14 +58,14 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <p class="copyright mb-0">made by <a href="#">...</a></p>
+            <p class="copyright mb-0">made by <a href="#">HATSTORE</a></p>
           </div>
           <div class="col-lg-6">
             <ul class="list-inline mb-0 footer-btm-links text-lg-right mt-2 mt-lg-0">
-              <li class="list-inline-item"><a href="#">...</a></li>
-              <li class="list-inline-item"><a href="#">...</a></li>
-              <li class="list-inline-item"><a href="#">...</a></li>
-              <li class="list-inline-item"><a href="#">...</a></li>
+              <li class="list-inline-item"><a href="#">Facebook</a></li>
+              <li class="list-inline-item"><a href="#">Instagram</a></li>
+              <li class="list-inline-item"><a href="#">Twitter</a></li>
+              <li class="list-inline-item"><a href="#">Email</a></li>
             </ul>
           </div>
         </div>

@@ -93,7 +93,7 @@
                 ></a>
                 <a
                   class="text-white"
-                  @click="addToCart(item)"
+                  @click="addToCart(item, Quantity)"
                   ><i class="tf-ion-ios-heart"></i
                 ></a>
               </div>
@@ -142,7 +142,7 @@
         <div class="row">
           <div class="col-lg-4 col-sm-12 col-md-12">
             <img
-              src="src/assets/images/banner3-hatt.jpg"
+              src="src/assets/images/banner4.jpg"
               alt="Product big thumb"
               class="img-fluid w-100" />
           </div>
@@ -152,17 +152,20 @@
               <h4 class="mb-4 pb-3">Bán chạy</h4>
 
               <div class="media mb-3" v-for="(hot,index) in isSeller" :key="index">
-                <a
-                  class="featured-entry-thumb"
-                  href="productdetails">
-                  <img
-                    :src="hot.image"
-                    alt="Product thumb"
-                    width="64"
-                    class="img-fluid mr-3" />
-                </a>
+                <router-link :to="{ name: 'ProductDetailsView', params: { id: hot.id } }">
+                  <a
+                      class="featured-entry-thumb"
+                      href="#">
+                    <img
+                        :src="hot.image"
+                        alt="Product thumb"
+                        width="64"
+                        class="img-fluid mr-3" />
+                  </a>
+
+                </router-link>
                 <div class="media-body">
-                  <h6 class="featured-entry-title mb-0"><a href="#">{{hot.NameProducts}}</a></h6>
+                  <h6 class="featured-entry-title mb-0"><router-link :to="{ name: 'ProductDetailsView', params: { id: hot.id } }">{{hot.NameProducts}}</router-link></h6>
                   <p class="featured-entry-meta">{{formatCurrency(hot.Price)}}</p>
                 </div>
               </div>
@@ -176,6 +179,8 @@
               <h4 class="mb-4 pb-3">Sản phẩm mới nhất</h4>
 
               <div class="media mb-3" v-for="(newPr,index) in newProducts" :key="index">
+                <router-link :to="{ name: 'ProductDetailsView', params: { id: newPr.id } }">
+
                 <a
                   class="featured-entry-thumb"
                   href="/productdetails">
@@ -185,8 +190,10 @@
                     width="64"
                     class="img-fluid mr-3" />
                 </a>
+                </router-link>
+
                 <div class="media-body">
-                  <h6 class="featured-entry-title mb-0"><a href="#">{{newPr.NameProducts}}</a></h6>
+                  <h6 class="featured-entry-title mb-0"><router-link :to="{ name: 'ProductDetailsView', params: { id: newPr.id } }">{{newPr.NameProducts}}</router-link></h6>
                   <p class="featured-entry-meta">{{formatCurrency(newPr.Price)}}</p>
                 </div>
               </div>
@@ -252,6 +259,7 @@ export default {
       newProducts:[],
       isSeller:[],
       categories:[],
+      Quantity: 1,
     };
   },
   mounted() {
@@ -270,7 +278,7 @@ export default {
     });
   },
   methods: {
-    addToCart(product) {
+    addToCart(product,quantity) {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       if (!isLoggedIn) {
         const Toast = Swal.mixin({
@@ -315,8 +323,8 @@ export default {
         icon: 'success',
         title: 'Order placed successfully',
       });
-
-      this.$emit('add-to-cart', product);
+      quantity = this.Quantity;
+      this.$emit('add-to-cart', product,quantity);
     },
     removeFromCart(product) {
       var cartItem = this.cart.find((item) => item.NameProducts === product.NameProducts);
