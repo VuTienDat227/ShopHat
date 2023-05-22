@@ -5,7 +5,7 @@
       <img
           src="../assets/images/Nike.com-L-removebg-preview.png" class="brand-image img-circle elevation-3"
           style="opacity: .8"/>
-      <span class="brand-text font-weight-light">Shop Hat</span>
+      <span class="brand-text font-weight-light">HATSTORE</span>
     </a>
 
     <!-- Sidebar -->
@@ -57,6 +57,15 @@
               </p>
 
             </RouterLink>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link cursor-pointer"  :class="{ 'active': currentRoute === '/admin/UserControl' }" v-on:click="checkApi">
+              <i class="fa-solid fa-users"></i>
+              <p>
+                Quản lý User
+              </p>
+            </a>
+
           </li>
           <li class="nav-item">
             <RouterLink to="#" class="nav-link cursor-pointer" v-on:click="logout()"
@@ -123,6 +132,18 @@ export default {
             console.error(error);
           });
     },
+    checkApi(){
+     const admin = localStorage.getItem('RoleId');
+      axios.post('/getUserAdmin', { admin: admin })
+          .then(response => {
+            this.$router.push({name: 'UserControl'}).then(() => {
+              window.location.reload();
+            });
+          })
+          .catch(error => {
+            console.log(error)
+          });
+    }
   }
 
 }

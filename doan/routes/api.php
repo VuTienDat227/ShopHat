@@ -48,6 +48,10 @@ Route::get('/getAllFillById/{id}', [UserLoginController::class, 'GetAllIdName'])
 Route::get('/checkLogin', [UserLoginController::class, 'checkLogin']);
 Route::get('/getUserAllAuth', [UserLoginController::class, 'getAllUsers']);
 Route::post('/logout', [UserLoginController::class, 'logout']);
+Route::post('/getUserAdmin', [UserLoginController::class, 'getAllUsersWithAdmin']);
+Route::delete('/userDeleteId/{id}', [UserLoginController::class, 'destroy']);
+Route::post('/users/{id}/email', [UserLoginController::class, 'updateEmail']);
+Route::post('/usersUpdateByAdmin/{id}', [UserLoginController::class, 'updateUserId']);
     // Các route API khác...
     // Các route có sử dụng session id ở đây
 
@@ -63,4 +67,10 @@ Route::get('/getAllOrdersAndUsers', [OrdersProductController::class, 'getAllOrde
 Route::post('/ordersAdd', [OrdersProductController::class, 'createOrder']);
 Route::post('/addToCart', [OrdersProductController::class, 'addToCart']);
 Route::post('/orders/{userId}/confirm', [OrdersProductController::class, 'confirmOrder']);
+Route::get('/deleteCart/{productId}/{id}', [OrdersProductController::class, 'deleteCart']);
+Route::post('/orderEdit/{id}', [OrdersProductController::class, 'updateCartMain']);
+Route::get('/getOrdersID/{id}', [OrdersProductController::class, 'addCartToOrder']);
+Route::post('/createOrderTest', [OrdersProductController::class, 'createOrderMain']);
+
+
 

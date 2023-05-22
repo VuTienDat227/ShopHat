@@ -6,12 +6,12 @@
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <div class="content text-center">
-              <h1 class="mb-3">Sản phâm</h1>
+              <h1 class="mb-3">Sản phẩm</h1>
               <p>Nơi thách thức mọi giới hạn</p>
 
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent justify-content-center">
-                  <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                  <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
                   <li class="breadcrumb-item active" aria-current="page">
                     {{ product.NameProducts }}
                   </li>
@@ -69,13 +69,14 @@
               <p class="product-description my-4" v-html="product.Details">
               </p>
 
-              <form class="cart" action="#" method="post">
+              <div class="cart" action="#" method="post">
                 <div class="quantity d-flex align-items-center">
-                  <input type="number" id="#" class="input-text qty text form-control w-25 mr-3" step="1" min="1" max="9"
-                    name="quantity"  title="Qty" size="4" v-model="Quantity" />
-                  <a href="#" class="btn btn-main btn-small" @click="addToCart(product, Quantity)">Add to cart</a>
+                  <button @click="decrement()" class="btnQuantity">-</button>
+                  <input type="text" class="quantityFl" v-model="Quantity"  readonly />
+                  <button @click="increment()" class="btnQuantity">+</button>
+                  <a href="#" class="btn btn-main btn-small ml-4" @click="addToCart(product, Quantity)">Thêm vào giỏ hàng</a>
                 </div>
-              </form>
+              </div>
 
               <div class="products-meta mt-4">
 
@@ -106,9 +107,9 @@
             <nav class="product-info-tabs wc-tabs mt-5 mb-5">
               <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-                  aria-controls="nav-home" aria-selected="true">Description</a>
+                  aria-controls="nav-home" aria-selected="true">Mô tả sản phẩm</a>
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                  aria-controls="nav-contact" aria-selected="false">Reviews(2)</a>
+                  aria-controls="nav-contact" aria-selected="false">Phản hồi(2)</a>
               </div>
             </nav>
 
@@ -132,9 +133,9 @@
                           <span><i class="tf-ion-android-star"></i></span>
                           <span><i class="tf-ion-android-star"></i></span>
                         </div>
-                        <h6>Người bình luận 1 <span class="text-sm text-muted font-weight-normal ml-3">2023</span></h6>
+                        <h6>Người bình luận  <span class="text-sm text-muted font-weight-normal ml-3">2023</span></h6>
                         <p>
-                          Mũ rất đẹp, chất vải tốt không nên mua!
+                          Mũ rất đẹp, chất vải tốt nên mua!
                         </p>
                       </div>
                     </div>
@@ -149,9 +150,9 @@
                           <span><i class="tf-ion-android-star"></i></span>
                           <span><i class="tf-ion-android-star-outline"></i></span>
                         </div>
-                        <h6>Người bình luận 1 <span class="text-sm text-muted font-weight-normal ml-3">2023</span></h6>
+                        <h6>Người bình luận  <span class="text-sm text-muted font-weight-normal ml-3">2023</span></h6>
                         <p>
-                          Mũ rất đẹp, chất vải tốt không nên mua!
+                          Mũ rất đẹp sẽ ủng hộ lâu dài!
                         </p>
                       </div>
                     </div>
@@ -209,7 +210,7 @@
 
               </div>
 
-              <span class="onsale">Sale</span>
+              <span class="onsale">Giảm 50%</span>
 
               <div class="product-info">
                 <h2 class="product-title h5 mb-0">
@@ -229,6 +230,32 @@
     </section>
   </div>
 </template>
+<style scoped>
+.quantityFl {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 30px;
+  font-size: 16px;
+  color: #43484D;
+  font-weight: 300;
+  border: 1px solid #E1E8EE;
+  height: auto !important;
+  background-color: #ffffff;
+}
+
+.btnQuantity {
+  border: 1px solid #E1E8EE;
+  width: 30px;
+  background-color: #E1E8EE;
+  /*   border-radius: 6px; */
+  cursor: pointer;
+}
+btnQuantity:focus,
+input:focus {
+  outline:0;
+}
+</style>
 <script>
 import axios from "@/axios";
 import Swal from "sweetalert2";
@@ -240,7 +267,7 @@ export default {
       product: '',
       isSeller: [],
       reloadFlag: false,
-      Quantity: 0,
+      Quantity: 1,
     };
   },
   mounted() {
@@ -257,6 +284,14 @@ export default {
 
   },
   methods: {
+    increment() {
+      this.Quantity++;
+    },
+    decrement() {
+      if (this.Quantity > 0) {
+        this.Quantity--;
+      }
+    },
     addToCart(product,quantity) {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       if (!isLoggedIn) {

@@ -6,16 +6,16 @@
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <div class="content text-center">
-              <h1 class="mb-3">Shop</h1>
+              <h1 class="mb-3">Trang chủ</h1>
               <p> Thỏa mãn phong cách của bạn</p>
 
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent justify-content-center">
-                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                   <li
                     class="breadcrumb-item active"
                     aria-current="page">
-                    Shop
+                    Danh mục sản phẩm
                   </li>
                 </ol>
               </nav>
@@ -32,28 +32,13 @@
             <div class="row align-items-center">
               <div class="col-lg-12 mb-4 mb-lg-0">
                 <div class="section-title">
-                  <h2 class="d-block text-left-sm">Shop</h2>
+                  <h2 class="d-block text-left-sm">Danh mục sản phẩm</h2>
 
                   <div class="heading d-flex justify-content-between mb-5">
                     <p class="result-count mb-0">Hiển thị 1–6 cho {{pagination.total}} kết quả</p>
                     <form
                       class="ordering"
                       method="get">
-                      <select
-                        name="orderby"
-                        class="orderby form-control"
-                        aria-label="Shop order">
-                        <option
-                          value=""
-                          selected>
-                          Default sorting
-                        </option>
-                        <option value="">Sort by popularity</option>
-                        <option value="">Sort by average rating</option>
-                        <option value="">Sort by latest</option>
-                        <option value="">Sort by price: low to high</option>
-                        <option value="">Sort by price: high to low</option>
-                      </select>
                       <input
                         type="hidden"
                         name="paged"
@@ -68,24 +53,29 @@
               <div class="col-lg-4 col-12 col-md-6 col-sm-6 mb-5" v-for="product in products" :key="product.id">
                 <div class="product">
                   <div class="product-wrap">
-                    <a href="/product-single"
+                    <router-link :to="{ name: 'ProductDetailsView', params: { id: product.id } }">
+                      <a href="#"
                       ><img
                         class="img-fluid w-100 mb-3 img-first"
                         :src="product.image"
                         alt="product-img"
                     /></a>
-                    <a href="/product-single"
+                    </router-link>
+                    <router-link :to="{ name: 'ProductDetailsView', params: { id: product.id } }">
+                      <a href="#"
                       ><img
                         class="img-fluid w-100 mb-3 img-second"
                         :src="product.image"
                         alt="product-img"
                     /></a>
+                    </router-link>
+                    
                   </div>
 
-                  <span class="onsale">Sale</span>
+                  <span class="onsale">Giảm 50%</span>
                   <div class="product-hover-overlay">
-                    <a href="#"><i class="tf-ion-android-cart"></i></a>
-                    <a href="#"><i class="tf-ion-ios-heart"></i></a>
+                    <a href="#" @click="addToCart(product,Quantity)"><i class="tf-ion-android-cart"></i></a>
+                    <a href="#" @click="addToCart(product,Quantity)"><i class="tf-ion-ios-heart"></i></a>
                   </div>
 
                   <div class="product-info">
@@ -124,7 +114,7 @@
               <button
                 type="button"
                 class="btn btn-black btn-small">
-                Filter
+                Lọc 
               </button>
             </form>
 
@@ -134,7 +124,7 @@
             
                 <img :src="hot.image" alt="" class="img-fluid mr-4" @click="goToProductDetails(hot.id)"/>
                 <div class="media-body"  @click="goToProductDetails(hot.id)">
-                  <h6 >Contrast <br />{{hot.NameProducts}}</h6>
+                  <h6 >Sản phẩm <br />{{hot.NameProducts}}</h6>
                   <span class="price">{{formatCurrency(hot.Price)}}</span>
                 </div>
               </a>
@@ -167,7 +157,8 @@ export default {
         per_page: 0,
         to: 0,
         total: 0
-      }
+      },
+      Quantity: 1
     }
   },
     computed: {
@@ -204,6 +195,54 @@ export default {
   },
 
   methods: {
+    addToCart(product,quantity) {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      if (!isLoggedIn) {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          },
+          onBeforeOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
+        Toast.fire({
+          icon: 'error',
+          title: 'Bạn chưa đăng nhập',
+        }).then(() => {
+          this.$router.push('/Login');
+        });
+
+        return;
+      }
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        },
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
+      Toast.fire({
+        icon: 'success',
+        title: 'Order placed successfully',
+      });
+      quantity = this.Quantity;
+      this.$emit('add-to-cart', product,quantity);
+    },
     goToPage(page) {
       if (typeof page === 'string') {
         const pageUrl = new URL(page);

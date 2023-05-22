@@ -40,4 +40,5 @@ export default {
 .min-height-250.bg-primary.position-absolute.w-100 {
   min-height: 100px !important;
 }
+
 </style>

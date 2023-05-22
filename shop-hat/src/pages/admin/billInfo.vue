@@ -1,16 +1,16 @@
 <template>
     <div class="container">
-        <h2>Bill Information</h2>
-        <button class="btn btn-success p-1 rounded mr-3 mb-1 float-right"><i class="fa-solid fa-square-plus"></i>
-            Add</button>
+        <h2>Chi tiết đơn hàng</h2>
+        <button class="btn btn-success p-1 rounded mr-3 mb-1 float-left"><i class="fa-solid fa-square-plus"></i>
+            Thêm đơn hàng</button>
         <table class="table table-bordered" id="getOrder">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                  <th scope="col">FullName</th>
-                  <th scope="col">PhoneNumber</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Total</th>
+                    <th scope="col">STT</th>
+                  <th scope="col">Tên khách hàng</th>
+                  <th scope="col">Số điện thoại</th>
+                  <th scope="col">Địa chỉ</th>
+                  <th scope="col">Tổng tiền</th>
                   <th scope="col">Trạng thái</th>
 
 

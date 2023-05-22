@@ -159,8 +159,10 @@ export default {
           }
         )
         .then((response) => {
+          const Id = response.data.Id;
           const token = response.data.token;
           localStorage.setItem('token', token);
+          localStorage.setItem('Id', Id);
           localStorage.setItem('isLoggedIn', true);
           this.$emit('loggedIn', this.isLoggedIn);
           this.$router.push({ name: 'home' }).then(() => {
@@ -174,3 +176,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>

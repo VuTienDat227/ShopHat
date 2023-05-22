@@ -1,21 +1,21 @@
 <template>
   <div class="container-fluid">
-    <h2>Product List</h2>
+    <h2>Quản lý sản phẩm</h2>
     <button data-toggle="modal" data-target="#AddProduct" class="btn btn-success p-1 rounded mr-3 mb-1 float-left"><i
         class="fa-solid fa-square-plus"></i>
-      Add
+      Thêm sản phẩm
     </button>
     <table class="table table-bordered" id="getListItems">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Image</th>
-          <th scope="col">Name</th>
-          <th scope="col">Details</th>
-          <th scope="col">Price</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Category</th>
-          <th scope="col">Action</th>
+          <th scope="col">STT</th>
+          <th scope="col">Ảnh</th>
+          <th scope="col">Tên sản phẩm</th>
+          <th scope="col">Mô tả chi tiết</th>
+          <th scope="col">Giá</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Loại mũ</th>
+          <th scope="col">Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
             <button v-on:click="getDetailsProduct(product.id)" class="btn btn-primary p-1 rounded mr-1"
               data-toggle="modal" data-target="#EditProduct">
               <i class="fa-solid fa-pen-to-square"></i>
-              Edit
+              Sửa
             </button>
             |
             <button v-on:click="getDetailsProduct(product.id)" class="btn btn-warning p-1 rounded mr-1"
@@ -47,7 +47,7 @@
             |
             <button class="btn btn-danger p-1 rounded ml-1" @click="deleteProduct(product.id)">
               <i class="fa-regular fa-trash-can"></i>
-              Delete
+              Xóa
             </button>
           </td>
         </tr>
@@ -123,7 +123,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetData">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetData">Đóng</button>
           <button type="button" class="btn btn-primary" v-on:click="editProducts(productId)">Lưu thay đổi</button>
         </div>
 
@@ -190,7 +190,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetData">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="resetData">Đóng</button>
         </div>
 
       </div>
@@ -799,4 +799,8 @@ export default {
 <style scoped>
 .pagination .page-item .page-link {
   width: 100px;
-}</style>
+}
+.dataTables_filter{
+  float: right !important;
+}
+</style>

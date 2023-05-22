@@ -6,12 +6,12 @@
         <div class="row justify-content-center">
           <div class="col-lg-6">
             <div class="content text-center">
-              <h1 class="mb-3">Checkout</h1>
+              <h1 class="mb-3">Thủ tục thanh toán</h1>
               <p>Cảm ơn bạn đã đồng hành cùng chuúng mình trên con đường trở thành người thành công!</p>
 
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent justify-content-center">
-                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                   <li
                       class="breadcrumb-item active"
                       aria-current="page">
@@ -50,7 +50,7 @@
                     <div class="col-lg-6">
                       <div class="form-group mb-4">
                         <label for="first_name">Tên của bạn</label>
-                        <input type="text" v-model="FullName" class="form-control" id="first_name" placeholder=""/>
+                        <input type="text" v-model="FullName" class="form-control" id="first_name" placeholder="" readonly/>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -91,20 +91,20 @@
                     </div>
                     <div class="col-lg-12">
                       <div class="form-group mb-4">
-                        <label for="first_name">Phone </label>
+                        <label for="first_name">Số điện thoại </label>
                         <input
                             type="text"
                             class="form-control"
                             id="phone"
                             placeholder=""
-                        v-model="PhoneNumber"/>
+                        v-model="PhoneNumber" readonly/>
                       </div>
                     </div>
                     <div class="col-lg-12">
                       <div class="form-group mb-4">
                         <label for="first_name">Chi tiết địa chỉ</label>
                         <textarea class="form-control" id="msg" cols="30" rows="5"
-                                  placeholder="Chi tiết địa chỉ"></textarea>
+                                  placeholder="Chi tiết địa chỉ" v-model="DetailsAddress"></textarea>
                       </div>
                     </div>
                   </div>
@@ -260,6 +260,14 @@ export default {
       PhoneNumber: '',
       Email: '',
       paymentMethod:'',
+      NameDetails: '',
+      EmailDetails: '',
+      selectedCityDetails: '',
+      selectedDistrictDetails: '',
+      selectedWardDetails: '',
+      PhoneNumberDetails: '',
+      DetailsAddress: '',
+
     }
   },
   mounted() {
@@ -282,6 +290,7 @@ export default {
         .then((re) => {
           this.FullName = re.data.data.FullName;
           this.PhoneNumber = re.data.data.PhoneNumber;
+          this.Email = re.data.data.Email;
         }).catch(error => {
       console.log(error);
     });
@@ -306,6 +315,7 @@ export default {
             Số điện thoại: ${this.PhoneNumber}
             Tổng giá trị đơn hàng: ${this.formatCurrency(this.calculateTotalPrice())}
             Order IDs: ${this.orderIds}
+            Địa chỉ nhận hàng: ${this.result}
             Phương thức thanh toán: ${paymentMethodData}`,
 
       };
@@ -334,6 +344,24 @@ export default {
       return formatter.format(value);
     },
     async confirmOrder() {
+      const id = localStorage.getItem('Id');
+
+      if(this.Email.length > 0){
+        try {
+          await axios.post(`/users/${id}/email`,{Email: this.Email});
+          console.log('Cập nhật email thành công');
+        }
+        catch (error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Đã tồn tại email!!',
+          })
+          console.log('Lỗi khi cập nhật email:', error);
+          return;
+        }
+
+      }
       Swal.fire({
         title: 'Đang xác nhận đơn hàng...',
         allowOutsideClick: false,
@@ -341,7 +369,6 @@ export default {
           Swal.showLoading();
         }
       });
-      const id = localStorage.getItem('Id');
       const orderIdsString = this.orderIds.join(',');
       const orderQuantity = this.calculateTotalPrice();
       const requestData = {
@@ -390,14 +417,13 @@ export default {
       });
     },
     callAPI(api) {
-      axios.get(api, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json',
-        },
-      })
+      fetch(api)
           .then(response => {
-            this.cities = response.data;
+            return  response.json()
+          })
+          .then(data=>{
+            this.cities = data;
+            console.log("this.cities ->",data);
           })
           .catch(error => {
             console.error(error);
@@ -406,14 +432,17 @@ export default {
     getDistricts() {
       if (this.selectedCity) {
         const api = this.host + 'p/' + this.selectedCity + '?depth=2';
-        axios.get(api)
+        fetch(api)
             .then(response => {
-              this.districts = response.data.districts;
-              this.selectedDistrict = '';
-              this.wards = [];
-              this.selectedWard = '';
-              this.result = '';
-            })
+              return  response.json()
+
+            }).then((data)=>{
+          this.districts = data.districts;
+          this.selectedDistrict = '';
+          this.wards = [];
+          this.selectedWard = '';
+          this.result = '';
+        })
             .catch(error => {
               console.error(error);
             });
@@ -426,12 +455,14 @@ export default {
     getWards() {
       if (this.selectedDistrict) {
         const api = this.host + 'd/' + this.selectedDistrict + '?depth=2';
-        axios.get(api)
+        fetch(api)
             .then(response => {
-              this.wards = response.data.wards;
-              this.selectedWard = '';
-              this.result = '';
-            })
+              return  response.json()
+            }).then(data=>{
+          this.wards = data.wards;
+          this.selectedWard = '';
+          this.result = '';
+        })
             .catch(error => {
               console.error(error);
             });
@@ -446,7 +477,7 @@ export default {
         const district = this.districts.find(d => d.code === this.selectedDistrict);
         const ward = this.wards.find(w => w.code === this.selectedWard);
 
-        this.result = `${city.name} | ${district.name} | ${ward.name}`;
+        this.result = `Thành phố: ${city.name} , Quận/Huyện: ${district.name} , Phường/Xã: ${ward.name}`;
       } else {
         this.result = '';
       }

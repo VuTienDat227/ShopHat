@@ -6,7 +6,7 @@
           <div class="col-lg-6">
             <div class="login-form border p-5">
               <div class="text-center heading">
-                <h2 class="mb-2">Login</h2>
+                <h2 class="mb-2">Đăng nhập</h2>
                 <p class="lead">
                   Không có tài khoản?
                   <router-link :to="{ name: 'Signup' }">

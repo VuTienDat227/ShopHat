@@ -9,11 +9,11 @@
             <div class="col-lg-6 col-12 offset-lg-6 offset-md-6">
               <div class="slider-caption">
                 <span class="lead"></span>
-                <h1 class="mt-2 mb-5"><span class="text-color">Winter </span></h1>
+                <h1 class="mt-2 mb-5"><span class="text-color">Bộ sưu tập mùa đông </span></h1>
                 <a
-                  href="#"
+                  href="/shop"
                   class="btn btn-main"
-                  >Shop Now</a
+                  >Mua ngay</a
                 >
               </div>
             </div>
@@ -32,12 +32,12 @@
                 class="img-fluid" style="width: 50%"/>
               <div class="item-info">
                 <p class="mb-0">{{cate.CateName}}</p>
-                <h4 class="mb-4">up to <strong>50% </strong>off</h4>
+                <h4 class="mb-4">Giảm <strong>50% </strong>off</h4>
 
                 <a
-                  href="#"
+                  href="http://localhost:800/shop"
                   class="read-more"
-                  >Shop now</a
+                  >Mua ngay</a
                 >
               </div>
             </div>
@@ -84,11 +84,11 @@
                 </a>
               </div>
 
-              <span class="onsale">Sale</span>
+              <span class="onsale">giảm 50%</span>
               <div class="product-hover-overlay">
                 <a
                   class="text-white"
-                  @click="ViewCart()"
+                  @click="addToCart(item, Quantity)"
                   ><i class="tf-ion-android-cart"></i
                 ></a>
                 <a
@@ -120,16 +120,16 @@
           <div class="col-lg-6 offset-lg-6">
             <div class="ads-content">
               <span class="h5 deal">Giảm giá đến 50%</span>
-              <h2 class="mt-3 text-white">Trendy </h2>
+              <h2 class="mt-3 text-white">Sản phẩm chất </h2>
               <p class="text-md mt-3 text-white">Hãy nhanh chân đến với cửa hàng chúng tôi!</p>
 
               <div
                 id="simple-timer"
                 class="syotimer mb-5"></div>
               <a
-                href="#"
+                href="/shop"
                 class="btn btn-main"
-                ><i class="ti-bag mr-2"></i>Shop Now
+                ><i class="ti-bag mr-2"></i>Mua ngay
               </a>
             </div>
           </div>
@@ -211,7 +211,7 @@
             <div class="feature-block">
               <i class="tf-ion-android-bicycle"></i>
               <div class="content">
-                <h5>Free Shipping</h5>
+                <h5>Miễn phí đơn hàng</h5>
                 <p>Cho tất cả đơn hàng</p>
               </div>
             </div>

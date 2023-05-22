@@ -14,6 +14,8 @@ use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserLoginController extends Controller
 {
@@ -48,7 +50,30 @@ class UserLoginController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+public function updateUserId(Request $request,$id){
+    $validator = $request->validate([
+        'UserName' => 'required',
+        'FullName' => 'nullable',
+        'Email' => 'nullable',
+        'PhoneNumber' => 'nullable',
+        'Address' => 'nullable',
+        'RoleId' => 'nullable',
+    ]);
+    $UserName = UserLogin::where('UserName', $request->input('UserName'))
+            ->whereNotIn('id', [$id])
+            ->exists();
+            
+        if ($UserName) {
+            return response()->json(['message' => 'UserName đã tồn tại'], 400);
+        }
+    $user = UserLogin::findOrFail($id);
 
+    $user->update($validator);
+
+    $user->save();
+    return response()->json(['message' => 'Sua thanh cong','data' => $user],200);
+
+}
     public function GetByIdName()
     {
         try {
@@ -71,7 +96,64 @@ class UserLoginController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+    public function getAllUsersWithAdmin(Request $request)
+    {
+        $admin = $request->input('admin');
 
+        if ($admin == 2) {
+            $users = UserLogin::select('id', 'UserName', 'FullName','Email', 'PhoneNumber', 'Address', 'created_at', 'updated_at')
+                ->where('RoleId', 1)
+                ->get();
+
+            return response()->json(['users' => $users], 200);
+        }
+        return response()->json(['message' => 'Không đủ quyền'], 401);
+
+
+    }
+    public function updateEmail(Request $request, $id)
+    {
+        // Kiểm tra xác thực yêu cầu
+        $validator = Validator::make($request->all(), [
+            'Email' => 'Email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        // Lấy người dùng cần cập nhật
+        $user = UserLogin::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'Không tìm thấy người dùng'], 404);
+        }
+
+        // Kiểm tra xem email đã tồn tại trong bảng UserLogin hay chưa
+        $emailExists = UserLogin::where('Email', $request->input('Email'))
+            ->whereNotIn('id', [$id])
+            ->exists();
+
+        if ($emailExists) {
+            return response()->json(['message' => 'Email đã tồn tại'], 400);
+        }
+
+        // Cập nhật email
+        $user->Email = $request->input('Email');
+        $user->update();
+        $user->save();
+
+        return response()->json(['message' => 'Cập nhật thành công'], 200);
+    }
+    public function destroy($id)
+    {
+        $user = UserLogin::find($id);
+        if (!$user) {
+            return response()->json(['error' => 'không tồn tại'], 404);
+        }
+        $user->delete();
+        return response()->json(['message' => 'Xóa  thành công'], 200);
+    }
     public function GetAllIdName($id)
     {
         $user = UserLogin::find($id);
@@ -79,7 +161,10 @@ class UserLoginController extends Controller
             return response()->json(['error' => 'Không tìm thấy user'], 404);
         }
         $userData = [
+            'id' => $user->id,
+            'UserName' => $user->UserName,
             'FullName' => $user->FullName,
+            'Email' => $user->Email,
             'PhoneNumber' => $user->PhoneNumber,
             'Address' => $user->Address,
         ];
@@ -133,17 +218,19 @@ class UserLoginController extends Controller
                 'UserName' => $credentials['UserName'],
                 'PasswordUser' => $hashedPassword,
                 'FullName' => $request->input('FullName'),
+                'Email' => $request->input('Email'),
                 'PhoneNumber' => $request->input('PhoneNumber'),
                 'Address' => $request->input('Address'),
                 'RoleId' => 1,
             ]);
+            $idUser = $userData->id;
             if (!$userData->wasRecentlyCreated) {
                 // Người dùng đã tồn tại, trả về lỗi tương ứng
                 return response()->json(['error' => 'Đã có user'], 409);
             }
             $token = $this->generateToken($userData);
 
-            return response()->json(['user' => $userData, 'token' => $token], 201);
+            return response()->json(['user' => $userData, 'token' => $token,'Id'=>$idUser], 201);
 
         } catch (QueryException $e) {
             // Xử lý lỗi nếu có
@@ -177,6 +264,7 @@ class UserLoginController extends Controller
             'UserName' => 'required|unique:UserLogin',
             'PasswordUser' => 'required|min:6',
             'FullName' => 'nullable',
+            'Email' => 'nullable',
             'PhoneNumber' => 'nullable',
             'Address' => 'nullable',
             'RoleId' => 'nullable',

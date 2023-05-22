@@ -1,7 +1,7 @@
 <template>
   <div class="text-center alert alert-danger">
     BẠN KHÔNG CÓ QUYỀN TRUY CẬP<br>
-    SẼ TỰ ĐỘNG CHUYỂN HƯỚNG VỀ TRANG HOME SAU {{ countdown }}s
+    SẼ TỰ ĐỘNG CHUYỂN HƯỚNG VỀ TRANG CHỦ SAU {{ countdown }}s
   </div>
 </template>
 

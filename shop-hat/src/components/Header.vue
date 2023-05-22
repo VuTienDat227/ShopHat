@@ -5,202 +5,105 @@ import 'popper.js/dist/umd/popper.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 </script>
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation"
-    id="navbar">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white w-100 navigation" id="navbar">
     <div class="container">
-      <RouterLink
-        class="navbar-brand font-weight-bold"
-        to="/"
-        >HATSTORE
+      <RouterLink class="navbar-brand font-weight-bold" to="/">HATSTORE
       </RouterLink>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#main-navbar"
-        aria-controls="main-navbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+        aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="collapse navbar-collapse"
-        id="main-navbar">
+      <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item active">
-            <RouterLink
-              class="nav-link"
-              to="/"
-              >Trang chủ
+            <RouterLink class="nav-link" to="/">Trang chủ
             </RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink
-              class="nav-link"
-              to="/AboutUs"
-              >Về chúng tôi
+            <RouterLink class="nav-link" to="/AboutUs">Về chúng tôi
             </RouterLink>
-            
+
           </li>
 
           <li class="nav-item dropdown dropdown-slide">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown4"
-              role="button"
-              data-delay="350"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false">
-              Pages
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-delay="350"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Trang
             </a>
-            <ul
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdown4">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
               <li><a href="#">Về chúng tôi</a></li>
-              <li><a href="#">Blog</a></li>
+              <li><a href="#">Tin tức</a></li>
               <li><a href="#">Liên hệ</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown dropdown-slide">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown3"
-              role="button"
-              data-delay="350"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false">
-              Shop.
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-delay="350"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Cửa hàng
             </a>
-            <ul
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdown3">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
               <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/shop"
-                  >Shop Page
+                <RouterLink class="nav-link" to="/shop">Danh mục
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/checkout"
-                  >Thanh toán
+                <RouterLink class="nav-link" to="/checkout">Thanh toán
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/CartView"
-                  >Giỏ hàng
+                <RouterLink class="nav-link" to="/CartView">Giỏ hàng
                 </RouterLink>
               </li>
             </ul>
           </li>
 
           <li class="nav-item dropdown dropdown-slide">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown5"
-              role="button"
-              data-delay="350"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-delay="350"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Tài khoản
             </a>
-            <ul
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdown5"
-              v-if="!isLoggedIn">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown5" v-if="!isLoggedIn">
               <li>
-                <RouterLink
-                  class="nav-link"
-                  :to="{ name: 'Login' }"
-                  >Đăng nhập
+                <RouterLink class="nav-link" :to="{ name: 'Login' }">Đăng nhập
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/signup"
-                  >Đăng ký
+                <RouterLink class="nav-link" to="/signup">Đăng ký
                 </RouterLink>
               </li>
               <li>
-                <RouterLink
-                  class="nav-link"
-                  to="/forgotpassword"
-                  >Quên mật khẩu
+                <RouterLink class="nav-link" to="/forgotpassword">Quên mật khẩu
                 </RouterLink>
               </li>
             </ul>
-            <ul
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdown5"
-              v-else>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown5" v-else>
               <li>
-                <a
-                  class="nav-link logout"
-                  @click="logout"
-                  >Đăng xuất</a
-                >
+                <a class="nav-link logout" @click="logout">Đăng xuất</a>
               </li>
             </ul>
           </li>
         </ul>
       </div>
 
-      <ul
-        class="top-menu list-inline mb-0 d-none d-lg-block"
-        id="top-menu">
+      <ul class="top-menu list-inline mb-0 d-none d-lg-block" id="top-menu">
         <li class="list-inline-item">
-          <a
-            href="#"
-            class="search_toggle"
-            id="search-icon"
-            @click="toggleSearch"
-            ><i class="tf-ion-android-search"></i
-          ></a>
+          <a href="#" class="search_toggle" id="search-icon" @click="toggleSearch"><i
+              class="tf-ion-android-search"></i></a>
         </li>
 
-        <div
-          class="search-popup"
-          v-if="isSearchOpen">
+        <div class="search-popup" v-if="isSearchOpen">
           <div class="popup-content">
             <div class="d-flex justify-content-center position-relative">
-              <input
-                type="text"
-                v-model="keyword"
-                placeholder="Nhập tên sản phẩm"
-                style="width: 52%" />
-              <a
-                href="#"
-                class="remove position-absolute top-0 end-0"
-                @click="toggleSearch"
-                style="top: 20%; left: 71%"
-                ><i class="tf-ion-close"></i
-              ></a>
+              <input type="text" v-model="keyword" placeholder="Nhập tên sản phẩm" style="width: 52%" />
+              <a href="#" class="remove position-absolute top-0 end-0" @click="toggleSearch"
+                style="top: 20%; left: 71%"><i class="tf-ion-close"></i></a>
             </div>
 
             <div class="search-results">
-              <div
-                v-for="result in filteredResults"
-                :key="result.id"
-                class="search-item">
-                <router-link
-                  :to="{ name: 'ProductDetailsView', params: { id: result.id } }"
-                  class="d-inline-flex align-items-center"
-                  @click="reloadPage()">
-                  <img
-                    :src="result.image"
-                    alt="Product Image" />
+              <div v-for="result in filteredResults" :key="result.id" class="search-item">
+                <router-link :to="{ name: 'ProductDetailsView', params: { id: result.id } }"
+                  class="d-inline-flex align-items-center" @click="reloadPage()">
+                  <img :src="result.image" alt="Product Image" />
                   <div class="item-details">
                     <h3>{{ result.NameProducts }}</h3>
                     <p>Giá: {{ formatCurrency(result.Price) }}</p>
@@ -212,24 +115,14 @@ import 'bootstrap/dist/js/bootstrap.min.js';
         </div>
 
         <li class="dropdown cart-nav dropdown-slide list-inline-item">
-          <a
-            href="#"
-            class="dropdown-toggle cart-icon"
-            data-toggle="dropdown"
-            data-hover="dropdown">
+          <a href="#" class="dropdown-toggle cart-icon" data-toggle="dropdown" data-hover="dropdown">
             <i class="tf-ion-android-cart"></i>
             <span class="cart-count">{{ cart.length }}</span>
           </a>
           <div class="dropdown-menu cart-dropdown">
-            <div
-              class="media"
-              v-for="(product, index) in cart"
-              :key="index">
+            <div class="media" v-for="(product, index) in cart" :key="index">
               <a href="#">
-                <img
-                  class="media-object img- mr-3"
-                  :src="product.image"
-                  alt="image" />
+                <img class="media-object img- mr-3" :src="product.image" alt="image" />
               </a>
 
               <div class="media-body">
@@ -239,36 +132,19 @@ import 'bootstrap/dist/js/bootstrap.min.js';
                   <span>{{ formatCurrency(product.Price) }}</span>
                 </div>
               </div>
-              <a
-                href="#"
-                class="remove"
-                @click="removeFromCart(index)"
-                ><i class="tf-ion-close"></i
-              ></a>
+              <a href="#" class="remove" @click="removeFromCart(index)"><i class="tf-ion-close"></i></a>
             </div>
 
             <div class="cart-summary">
               <span class="h6">Total</span>
               <span class="total-price h6">{{ formatCurrency(calculateTotalPrice()) }}</span>
-              <div class="text-center cart-buttons mt-3" >
-                <router-link
-                  :to="{ name: 'CartView' }"
-                  class="btn btn-small btn-transparent btn-block"
-                  @click="ViewCart"
-                  :disabled="isEmptyCart"
-                >
+              <div class="text-center cart-buttons mt-3">
+                <a class="btn btn-small btn-transparent btn-block" @click="ViewCart" :disabled="isEmptyCart">
                   Xác nhận
-                </router-link>
-                <router-link
-                    :to="{ name: 'CartView' }"
-                    class="btn btn-small btn-transparent btn-block"
-                    :disabled="isEmptyCart"
-                >
-                <a
-                  href="#"
-                  class="btn btn-small btn-main btn-block"
-                  :disabled="isEmptyCart"
-                  >Thanh toán</a>
+                </a>
+                <router-link :to="{ name: 'CartView' }" class="btn btn-small btn-transparent btn-block"
+                  :disabled="isEmptyCart">
+                  <a href="#" class="btn btn-small btn-main btn-block" :disabled="isEmptyCart">Thanh toán</a>
                 </router-link>
 
               </div>
@@ -276,11 +152,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
           </div>
         </li>
         <li class="list-inline-item">
-          <a
-            href="#"
-            @click="getUser()"
-            ><i class="tf-ion-ios-person mr-3"></i
-          ></a>
+          <a href="#" @click="getUser()"><i class="tf-ion-ios-person mr-3"></i></a>
         </li>
       </ul>
     </div>
@@ -381,14 +253,7 @@ export default {
       });
       return formatter.format(value);
     },
-    ViewCart1() {
-      Swal.fire({
-        title: 'Hello',
-        text: 'Welcome to SweetAlert2!',
-        icon: 'success',
-        confirmButtonText: 'OK',
-      });
-    },
+
     ViewCart() {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       if (!isLoggedIn) {
@@ -426,8 +291,10 @@ export default {
         title: 'Loading...',
       });
       axios
-        .post('/ordersAdd', formData)
+        .post('/createOrderTest', formData)
         .then((response) => {
+          localStorage.removeItem('cart');
+
           console.log(response.data);
           setTimeout(() => {
             Toast.close();
@@ -435,6 +302,9 @@ export default {
           Toast.fire({
             icon: 'success',
             title: 'Đã tạo thành công',
+          });
+          this.$router.push({ name: 'CartView' }).then(() => {
+            window.location.reload();
           });
         })
         .catch((error) => {
@@ -451,7 +321,7 @@ export default {
         });
     },
     logout() {
-     axios
+      axios
         .post('/logout')
         .then((response) => {
           console.log(response.data);

@@ -31,9 +31,9 @@
             <div class="footer-widget">
               <h4 class="mb-4">Có thể bạn cần</h4>
               <ul class="pl-0 list-unstyled mb-0">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Our Shop</a></li>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="#">Cửa hàng của chúng tôi</a></li>
               </ul>
             </div>
           </div>
@@ -47,7 +47,7 @@
                 <li class="d-lg-flex justify-content-between">Chủ nhật <span>12h-20.00</span></li>
               </ul>
 
-              <h5>Gọi ngay : +(84) 000-000</h5>
+              <h5>Gọi ngay : 0345678912</h5>
             </div>
           </div>
         </div>
@@ -58,14 +58,14 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
-            <p class="copyright mb-0">made by <a href="#">HATSTORE</a></p>
+            <p class="copyright mb-0">Được tạo ra bởi <a href="#">HATSTORE</a></p>
           </div>
           <div class="col-lg-6">
             <ul class="list-inline mb-0 footer-btm-links text-lg-right mt-2 mt-lg-0">
               <li class="list-inline-item"><a href="#">Facebook</a></li>
               <li class="list-inline-item"><a href="#">Instagram</a></li>
               <li class="list-inline-item"><a href="#">Twitter</a></li>
-              <li class="list-inline-item"><a href="#">Email</a></li>
+              <li class="list-inline-item"><a href="#"></a></li>
             </ul>
           </div>
         </div>

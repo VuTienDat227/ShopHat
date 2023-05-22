@@ -16,6 +16,7 @@ class UserLogin extends Authenticatable implements JWTSubject
         'UserName',
         'PasswordUser',
         'FullName',
+        'Email',
         'PhoneNumber',
         'Address',
         'RoleId',

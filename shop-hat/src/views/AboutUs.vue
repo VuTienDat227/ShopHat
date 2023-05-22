@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="section_title_all text-center">
-            <h3 class="font-weight-bold">Chào mừng đến với  <span class="text-custom">Shop Hat</span></h3>
+            <h3 class="font-weight-bold">Chào mừng đến với  <span class="text-custom">HATSTORE</span></h3>
             <p class="section_subtitle mx-auto text-muted">Thỏa sức đam mê với sự lựa chọn của bạn <br/>Cam kết chất lượng, uy tín tạo thương hiệu</p>
             <div class="">
               <i class=""></i>
@@ -35,11 +35,13 @@
         <div class="col-lg-6">
           <div class="about_header_main mt-3">
             <div class="about_icon_box">
-              <p class="text_custom font-weight-bold">Thương hiệu Nike của nước nào?</p>
+              <p class="text_custom font-weight-bold">Mến chào các bạn đến với HATSTORE</p>
             </div>
-            <h4 class="about_heading text-capitalize font-weight-bold mt-4">Nike là một trong những thương hiệu thời trang thể thao cao cấp lớn nhất thế giới hiện nay</h4>
-            <p class="text-muted mt-3">Nike là một tập đoàn đa quốc gia của Mỹ. Thương hiệu này phát triển đa dạng trong nhiều lĩnh vực như: Trang thiết bị thể thao, quần áo và giày dép phục vụ các môn thể thao, dịch vụ tương tác liên quan đến thể thao. Đặc biệt, Nike luôn ứng dụng khoa học công nghệ cao vào các sản phẩm của hãng</p>
-            <p class="text-muted mt-3">Nike Air Jordan: Đây là mẫu giày thể thao được lấy theo tên của huyền thoại bóng rổ Michael Jordan sau khi anh ký hợp đồng với thương hiệu. Mẫu giày này được ra mắt vào năm 1985 và nhanh chóng trở thành cái tên nổi tiếng trong giới trẻ ở Mỹ.</p>
+            <h4 class="about_heading text-capitalize font-weight-bold mt-4">HATSTORE là đơn vị chuyên cung cấp các các loại mũ nón thời trang cao cấp như mũ lưỡi trai, nón snapback, mũ bucket, mũ nồi beret, mũ phớt.
+
+</h4>
+            <p class="text-muted mt-3">Khởi nguồn từ niềm đam mê với mũ nón, cửa hàng HATSTORE dần được hình thành với mong muốn mang thương hiệu nón mũ thời trang Việt vươn ra toàn cầu. HATSTORE không ngừng phát triển và hoàn thiện các dòng sản phẩm của mình.</p>
+            <p class="text-muted mt-3">Với lòng nhiệt huyết và hướng đi riêng, HATSTORE dần hoàn thiện hơn và trở thành một trong những thương hiệu nón mũ thời trang có chỗ đứng trong lòng khách hàng.</p>
           </div>
         </div>
         <div class="col-lg-6">

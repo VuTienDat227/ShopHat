@@ -1,17 +1,17 @@
 <template>
   <div class="container-fluid">
-    <h2>Category List</h2>
+    <h2>Quản lý danh mục sản phẩm</h2>
     <button data-toggle="modal" data-target="#AddCate" class="btn btn-success p-1 rounded mr-3 mb-1 float-left"><i class="fa-solid fa-square-plus"></i>
-      Add
+      Thêm danh mục
     </button>
     <table class="table table-bordered" id="getListItemsCate">
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col" class="w-25">Image</th>
-        <th scope="col">Name</th>
-        <th scope="col">Details</th>
-        <th scope="col">Action</th>
+        <th scope="col">STT</th>
+        <th scope="col" class="w-25">Ảnh</th>
+        <th scope="col">Tên loại</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Hành động</th>
       </tr>
       </thead>
       <tbody>
@@ -25,12 +25,12 @@
         <td>
           <button v-on:click="editByCate(category.id)" class="btn btn-primary p-1 rounded mr-1" data-toggle="modal" data-target="#EditCate">
             <i class="fa-solid fa-pen-to-square"></i>
-            Edit
+            Sửa 
           </button>
           |
           <button class="btn btn-danger p-1 rounded ml-1" @click="deleteCategory(category.id)" >
             <i class="fa-regular fa-trash-can"></i>
-            Delete
+            Xóa
           </button>
         </td>
       </tr>
@@ -82,7 +82,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
           <button type="button" class="btn btn-primary" v-on:click="editCate(cateID)">Lưu thay đổi</button>
         </div>
       </div>

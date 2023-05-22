@@ -40,6 +40,136 @@ class OrdersProductController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+
+    // add to cart
+    public function addCartToOrder($id)
+    {
+        try {
+            $orderIds = OrdersProduct::where('user_id', $id)
+                ->where('Status', true)
+                ->pluck('id')
+                ->toArray();
+
+            $orderItems = OrdersDetails::with(['product', 'order.user'])
+                ->whereIn('OrderId', $orderIds)
+                ->get();
+
+            foreach ($orderItems as $key => $product) {
+                // Kiểm tra nếu trường "image" không rỗng
+                if (!empty($product->product->image)) {
+                    // Xây dựng đường dẫn hoàn chỉnh từ URL API và trường "image"
+                    $product->product->image = asset('storage/images/' . $product->product->image);
+                }
+            }
+
+            return response()->json(['orderItems' => $orderItems, 'orderIds' => $orderIds], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Lỗi'], 401);
+        }
+    }
+    // Update cart
+    public function updateCartMain(Request $request, $id){
+
+        try {
+            $orderTail = OrdersDetails::findOrFail($id);
+
+            $orderTail->Quantity = $request->input('Quantity');
+
+            $orderTail->save();
+
+            return response()->json($orderTail, 200);
+
+        }catch (\Throwable $e) {
+            return response()->json(['error' => 'Xảy ra lỗi'], 401);
+        }
+    }
+    // confirm order new
+    public function createOrderMain(Request $request)
+    {
+        $data = $request->validate([
+            'ProductId' => 'required|array',
+            'ProductId.*' => 'required',
+            'Quantity' => 'required|array',
+            'Quantity.*' => 'required',
+            'TotalPay' => 'required',
+            'Status' => 'boolean',
+            'user_id' => 'required'
+        ]);
+
+        // Kiểm tra xem đã tồn tại đơn hàng chưa
+        $order = OrdersProduct::where('user_id', $data['user_id'])
+            ->where('Status', true)
+            ->first();
+
+        $now = Carbon::now();
+
+        // Nếu đã tồn tại đơn hàng và chưa chuyển trạng thái về false
+        if ($order) {
+            // Update TotalPay của đơn hàng
+            $order->TotalPay = $data['TotalPay'];
+            $order->save();
+
+            $orderId = $order->id;
+        } else {
+            // Insert data into orders table
+            $order = [
+                'user_id' => $data['user_id'],
+                'TotalPay' => $data['TotalPay'],
+                'Status' => $data['Status'],
+                'created_at' => $now,
+                'updated_at' => $now
+            ];
+
+            $orderId = OrdersProduct::insertGetId($order);
+        }
+
+        $products = [];
+        for ($i = 0; $i < count($data['ProductId']); $i++) {
+            // Kiểm tra xem sản phẩm đã tồn tại trong order_details chưa
+            $existingProduct = OrdersDetails::where('OrderId', $orderId)
+                ->where('ProductId', $data['ProductId'][$i])
+                ->first();
+
+            if ($existingProduct) {
+                // Update Quantity của sản phẩm
+                $existingProduct->Quantity += $data['Quantity'][$i];
+                $existingProduct->save();
+            } else {
+                $product = [
+                    'ProductId' => $data['ProductId'][$i],
+                    'Quantity' => $data['Quantity'][$i],
+                    'OrderId' => $orderId,
+                    'created_at' => $now,
+                    'updated_at' => $now
+                ];
+
+                $products[] = $product;
+            }
+        }
+
+        // Insert data into order_details table for new products
+        if (!empty($products)) {
+            OrdersDetails::insert($products);
+        }
+
+        return response()->json(['message' => 'Thêm mới đơn hàng thành công'], 201);
+    }
+    public function deleteCart($productId,$user){
+
+        try {
+            $productIds = OrdersDetails::whereHas('order', function ($query) use ($user) {
+                $query->where('user_id', $user)
+                    ->where('Status', true);
+            })
+                ->where('ProductId', $productId)
+                ->pluck('id')
+                ->toArray();
+            OrdersDetails::whereIn('id', $productIds)->delete();
+            return response()->json(['message' => 'Xóa thành công', 'data' => $productIds], 201);
+        }catch (\Throwable $e) {
+            return response()->json(['error' => 'Xảy ra lỗi'], 401);
+        }
+    }
     public function countStatusOrders()
     {
         try {

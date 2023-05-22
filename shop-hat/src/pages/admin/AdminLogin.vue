@@ -6,37 +6,37 @@
           <div class="col-lg-6">
             <div class="login-form border p-5">
               <div class="text-center heading">
-                <h2 class="mb-2">Login</h2>
-                <p class="lead">Don’t have an account? <a href="#">Create a free account</a></p>
+                <h2 class="mb-2">Đăng nhập ADMIN</h2>
+                <p class="lead">Chào bạn đến với ADMIN? <a href="#"></a></p>
               </div>
 
               <form @submit.prevent="login">
                 <div class="form-group mb-4">
-                  <label for="#">Enter username</label>
+                  <label for="#">Tên đăng nhập</label>
                   <input
                       type="text"
                       class="form-control"
-                      placeholder="Enter Username"
+                      placeholder="Bạn nhập vào đi"
                       v-model="userName"/>
                 </div>
                 <div class="form-group">
-                  <label for="#">Enter Password</label>
+                  <label for="#">Mật khẩu</label>
                   <a
                       class="float-right"
                       href=""
-                  >Forget password?</a
+                  >Quên mật khẩu?</a
                   >
                   <input
                       type="text"
                       class="form-control"
-                      placeholder="Enter Password"
+                      placeholder="Bạn nhập vào đi"
                       v-model="password"/>
                 </div>
 
                 <button
                     class="btn btn-main mt-3 btn-block"
                     type="submit"
-                >Login</button
+                >Đăng nhập</button
                 >
               </form>
             </div>

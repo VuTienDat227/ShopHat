@@ -16,6 +16,8 @@ import AdminProduct from '../pages/admin/product.vue';
 import AdminCategory from '../pages/admin/category.vue';
 import AdminBillInfo from '../pages/admin/billInfo.vue';
 import AdminLogin from '../pages/admin/AdminLogin.vue';
+import UserControl from '../pages/admin/UserControl.vue';
+
 import AboutUs from '../views/AboutUs.vue'
 import axios from '@/axios';
 
@@ -178,6 +180,12 @@ const router = createRouter({
                 {
                     path: 'bill-info',
                     component: AdminBillInfo,
+                },
+                {
+                    path: 'UserControl',
+                    name:'UserControl',
+                    component: UserControl,
+
                 },
             ],
         },
