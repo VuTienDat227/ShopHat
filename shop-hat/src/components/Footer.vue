@@ -31,8 +31,8 @@
             <div class="footer-widget">
               <h4 class="mb-4">Có thể bạn cần</h4>
               <ul class="pl-0 list-unstyled mb-0">
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#">Về chúng tôi</a></li>
+                <li><a href="http://localhost:800">Trang chủ</a></li>
+                <li><a href="http://localhost:800/AboutUs">Về chúng tôi</a></li>
                 <li><a href="#">Cửa hàng của chúng tôi</a></li>
               </ul>
             </div>

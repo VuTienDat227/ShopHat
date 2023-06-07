@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderEmail;
 use App\Models\Category;
+use App\Models\OrdersDetails;
+use App\Models\OrdersProduct;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -22,6 +25,25 @@ class ProductsController extends Controller
                 ->subject($subject);
         });
         return response()->json(['message' => 'Đã gửi mail thành công']);
+    }
+    public function sendEmailByAdmin(Request $request)
+    {
+        $email = $request->input('email');
+        $orderId = $request->input('id');
+        $order = OrdersProduct::find($orderId);
+        $orderItems = OrdersDetails::with(['product', 'order'])
+            ->where('OrderId', $orderId)
+            ->get();
+
+        foreach ($orderItems as $key => $product) {
+            if (!empty($product->product->image)) {
+                $product->product->image = asset('storage/images/' . $product->product->image);
+            }
+        }
+        // Gửi email
+        Mail::to($email)->send(new OrderEmail($orderItems,$order));
+
+        return response()->json(['message' => 'Email sent successfully']);
     }
     public function index()
     {

@@ -72,7 +72,7 @@
                     
                   </div>
 
-                  <span class="onsale">Giảm 50%</span>
+                  
                   <div class="product-hover-overlay">
                     <a href="#" @click="addToCart(product,Quantity)"><i class="tf-ion-android-cart"></i></a>
                     <a href="#" @click="addToCart(product,Quantity)"><i class="tf-ion-ios-heart"></i></a>

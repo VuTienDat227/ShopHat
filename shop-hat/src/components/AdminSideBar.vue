@@ -5,7 +5,7 @@
       <img
           src="../assets/images/Nike.com-L-removebg-preview.png" class="brand-image img-circle elevation-3"
           style="opacity: .8"/>
-      <span class="brand-text font-weight-light">HATSTORE</span>
+      <span class="brand-text font-weight-light">ADMIN</span>
     </a>
 
     <!-- Sidebar -->
@@ -20,7 +20,7 @@
 
               <i class="fa-solid fa-house-user"></i>
               <p>
-                Trang chủ
+                Quản lý thống kê
               </p>
 
             </RouterLink>
@@ -31,7 +31,7 @@
 
               <i class="fa-brands fa-product-hunt"></i>
               <p>
-                Sản phẩm
+                Quản lý sản phẩm
               </p>
 
             </RouterLink>
@@ -42,7 +42,7 @@
 
               <i class="fa-solid fa-dumpster-fire"></i>
               <p>
-                Danh mục
+                Quản lý danh mục
               </p>
 
             </RouterLink>
@@ -53,7 +53,7 @@
 
               <i class="fa-solid fa-cash-register"></i>
               <p>
-                Hồ sơ thanh toán
+                Quản lý đơn hàng
               </p>
 
             </RouterLink>
@@ -62,7 +62,7 @@
             <a href="#" class="nav-link cursor-pointer"  :class="{ 'active': currentRoute === '/admin/UserControl' }" v-on:click="checkApi">
               <i class="fa-solid fa-users"></i>
               <p>
-                Quản lý User
+                Quản lý khách hàng
               </p>
             </a>
 

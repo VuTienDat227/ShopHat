@@ -1,20 +1,20 @@
 <template>
   <div class="container-fluid">
-    <h1>Quản lý User</h1>
+    <h1>Quản lý khách hàng</h1>
     <button data-toggle="modal" data-target="#AddUser" @click="reData"
       class="btn btn-success p-1 rounded mr-3 mb-1 float-left"><i class="fa-solid fa-square-plus"></i>
-      Thêm user
+      Thêm khách hàng
     </button>
     <table class="table-bordered" id="dataUserTable">
       <thead>
         <tr>
-          <th>#</th>
+          <th>STT</th>
           <th>Tên tài khoản</th>
           <th>Tên người dùng</th>
           <th>Số điện thoại</th>
           <th>Địa chỉ</th>
           <th>Email</th>
-          <th></th>
+          <th>Hành động</th>
         </tr>
       </thead>
       <tbody>

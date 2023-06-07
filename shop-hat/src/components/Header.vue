@@ -31,9 +31,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
               Trang
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
-              <li><a href="#">Về chúng tôi</a></li>
               <li><a href="#">Tin tức</a></li>
-              <li><a href="#">Liên hệ</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown dropdown-slide">
@@ -136,7 +134,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
             </div>
 
             <div class="cart-summary">
-              <span class="h6">Total</span>
+              <span class="h6">Giá tiền</span>
               <span class="total-price h6">{{ formatCurrency(calculateTotalPrice()) }}</span>
               <div class="text-center cart-buttons mt-3">
                 <a class="btn btn-small btn-transparent btn-block" @click="ViewCart" :disabled="isEmptyCart">
@@ -308,7 +306,7 @@ export default {
           });
         })
         .catch((error) => {
-          // Handle the error if needed
+          // Handle the error if needed ( xử lí lỗi nếu cần)
           console.error(error);
           setTimeout(() => {
             Toast.close();

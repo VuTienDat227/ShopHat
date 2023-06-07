@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\NewsListController;
 use App\Http\Controllers\OrdersProductController;
 
 /*
@@ -30,6 +31,7 @@ Route::post('/products/search', [ProductsController::class, 'searchProducts']);
 Route::get('/productsDetails/{id}', [ProductsController::class, 'getProductById']);
 Route::delete('/products/{id}', [ProductsController::class, 'destroy']);
 Route::post('/send-email', [ProductsController::class, 'sendEmail']);
+Route::post('/send-email-admin', [ProductsController::class, 'sendEmailByAdmin']);
 
 
 //Category
@@ -54,6 +56,14 @@ Route::post('/users/{id}/email', [UserLoginController::class, 'updateEmail']);
 Route::post('/usersUpdateByAdmin/{id}', [UserLoginController::class, 'updateUserId']);
     // Các route API khác...
     // Các route có sử dụng session id ở đây
+//NewList
+// file: routes/api.php
+//News
+Route::get('/news', 'NewsController@index'); // Lấy danh sách tin tức
+Route::get('/news/{id}', 'NewsController@show'); // Lấy tin tức theo ID
+Route::post('/news', 'NewsController@store'); // Tạo mới tin tức
+Route::put('/news/{id}', 'NewsController@update'); // Cập nhật tin tức
+Route::delete('/news/{id}', 'NewsController@destroy'); // Xóa tin tức
 
     // ...
 
@@ -72,5 +82,10 @@ Route::post('/orderEdit/{id}', [OrdersProductController::class, 'updateCartMain'
 Route::get('/getOrdersID/{id}', [OrdersProductController::class, 'addCartToOrder']);
 Route::post('/createOrderTest', [OrdersProductController::class, 'createOrderMain']);
 
+Route::post('/ordersDelete', [OrdersProductController::class, 'deleteOrder']);
+Route::get('/confirmToDestroy/{id}', [OrdersProductController::class, 'confirmForAdminDestroy']);
+
+Route::get('/confirmToSuccess/{id}', [OrdersProductController::class, 'confirmForAdmin']);
+Route::get('/getToSuccess/{id}', [OrdersProductController::class, 'detailsWithAdmin']);
 
 

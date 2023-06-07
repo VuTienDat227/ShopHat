@@ -34,16 +34,12 @@
                   <input
                       type="text"
                       class="form-control"
-                      placeholder="Nhập thành phố"
+                      placeholder="Nhập địa chỉ"
                       v-model="Address" required />
                 </div>
                 <div class="form-group mb-4">
                   <label for="#">Tài khoản</label>
-                  <a
-                    class="float-right"
-                    href=""
-                    >Quên mật khẩu?</a
-                  >
+                  
                   <input
                     type="text"
                     class="form-control"
@@ -67,7 +63,7 @@
                   <input
                     type="password"
                     class="form-control"
-                    placeholder="Confirm Password" v-model="confirmPassword" required/>
+                    placeholder="Nhập lại mật khẩu" v-model="confirmPassword" required/>
                 </div>
                 <span v-if="submitted" class="alert alert-danger">Mật khẩu không khớp!</span>
                 <button

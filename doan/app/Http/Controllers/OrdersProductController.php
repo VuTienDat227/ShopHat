@@ -41,7 +41,7 @@ class OrdersProductController extends Controller
         }
     }
 
-    // add to cart
+    // thêm giỏ hàng
     public function addCartToOrder($id)
     {
         try {
@@ -67,7 +67,7 @@ class OrdersProductController extends Controller
             return response()->json(['error' => 'Lỗi'], 401);
         }
     }
-    // Update cart
+    // cập nhập giỏ
     public function updateCartMain(Request $request, $id){
 
         try {
@@ -83,7 +83,7 @@ class OrdersProductController extends Controller
             return response()->json(['error' => 'Xảy ra lỗi'], 401);
         }
     }
-    // confirm order new
+    // Chấp nhận đơn mới
     public function createOrderMain(Request $request)
     {
         $data = $request->validate([
@@ -116,6 +116,9 @@ class OrdersProductController extends Controller
                 'user_id' => $data['user_id'],
                 'TotalPay' => $data['TotalPay'],
                 'Status' => $data['Status'],
+                'StatusForAdmin' => false,
+                'isCheck' => false,
+
                 'created_at' => $now,
                 'updated_at' => $now
             ];
@@ -386,6 +389,8 @@ $orderDetails = OrdersDetails::with('order','product')->get();
         }
 
         $order->Status = true;
+       
+
         $order->save();
 
         return response()->json([
@@ -415,6 +420,7 @@ $orderDetails = OrdersDetails::with('order','product')->get();
             // Cập nhật trạng thái 'Status' thành false cho từng đơn hàng
             foreach ($orders as $order) {
                 $order->Status = false;
+                
                 $order->save();
             }
 
@@ -423,6 +429,68 @@ $orderDetails = OrdersDetails::with('order','product')->get();
             // Xử lý lỗi nếu có lỗi xảy ra
 
             return response()->json(['error' => 'lỗi'], 500);
+        }
+    }
+    public function confirmForAdminDestroy($id)
+    {
+        $order = OrdersProduct::where('id', $id)->first();
+        if (!$order) {
+            return response()->json(['error' => 'Không tồn tại'], 404);
+        }
+
+        $order->isCheck = true;
+        $order->StatusForAdmin = true;
+
+        $order->save();
+
+        return response()->json(['success' => 'Đã xác nhận cho quản trị viên'], 200);
+    }
+    public function deleteOrder(Request $request){
+
+        $orderId = $request->input('id');
+        $order = OrdersProduct::find($orderId);
+        if(!$orderId){
+            return response()->json(['error' => ' Không tồn tại'], 404);
+
+        }
+        OrdersDetails::where('OrderId',$order->id)->delete();
+        $order->delete();
+        return response()->json(['message' => 'Xóa thành công'], 200);
+
+    }
+    public function confirmForAdmin($id)
+    {
+        $order = OrdersProduct::where('id', $id)->first();
+        if (!$order) {
+            return response()->json(['error' => 'Không tồn tại'], 404);
+        }
+
+        $order->StatusForAdmin = true;
+        $order->save();
+
+        return response()->json(['success' => 'Đã xác nhận cho quản trị viên'], 200);
+    }
+    public function detailsWithAdmin($id)
+    {
+        try {
+            $order = OrdersProduct::find($id);
+            if (!$order) {
+                return response()->json(['error' => 'Không tồn tại'], 404);
+            }
+
+            $orderItems = OrdersDetails::with(['product', 'order'])
+                ->where('OrderId', $id)
+                ->get();
+
+            foreach ($orderItems as $key => $product) {
+                if (!empty($product->product->image)) {
+                    $product->product->image = asset('storage/images/' . $product->product->image);
+                }
+            }
+            $user = UserLogin::find($order->user_id);
+            return response()->json(['orderItems' => $orderItems, 'order' => $order,'user'=>$user], 200);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Lỗi'], 401);
         }
     }
 

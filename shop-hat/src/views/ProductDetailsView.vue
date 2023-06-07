@@ -60,7 +60,7 @@
             <div class="single-product-details mt-5 mt-lg-0">
               <input type="hidden" :value="product.id" />
               <h2>{{ product.NameProducts }}</h2>
-              <div class="sku_wrapper mb-4">SKU: <span class="text-muted">{{product.id}} </span></div>
+              <div class="sku_wrapper mb-4">Mã: <span class="text-muted">{{product.id}} </span></div>
 
               <hr />
 
@@ -210,7 +210,7 @@
 
               </div>
 
-              <span class="onsale">Giảm 50%</span>
+             
 
               <div class="product-info">
                 <h2 class="product-title h5 mb-0">

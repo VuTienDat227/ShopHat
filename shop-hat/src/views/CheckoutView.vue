@@ -7,7 +7,7 @@
           <div class="col-lg-6">
             <div class="content text-center">
               <h1 class="mb-3">Thủ tục thanh toán</h1>
-              <p>Cảm ơn bạn đã đồng hành cùng chuúng mình trên con đường trở thành người thành công!</p>
+              <p>Cảm ơn bạn đã đồng hành cùng chúng mình trên con đường trở thành người thành công!</p>
 
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent justify-content-center">
@@ -15,7 +15,7 @@
                   <li
                       class="breadcrumb-item active"
                       aria-current="page">
-                    Checkout
+                    Chi tiết đơn hàng
                   </li>
                 </ol>
               </nav>
@@ -125,15 +125,15 @@
 
                 <ul class="summary-prices list-unstyled mb-4">
                   <li class="d-flex justify-content-between">
-                    <span>Subtotal:</span>
+                    <span>Tạm tính:</span>
                     <span class="h5">{{ formatCurrency(calculateTotalPrice()) }}</span>
                   </li>
                   <li class="d-flex justify-content-between">
-                    <span>Shipping:</span>
-                    <span class="h5">Free</span>
+                    <span>Giao hàng:</span>
+                    <span class="h5">Miễn phí</span>
                   </li>
                   <li class="d-flex justify-content-between">
-                    <span>Total</span>
+                    <span>Tổng</span>
                     <span class="h5">{{ formatCurrency(calculateTotalPrice()) }}</span>
                   </li>
                 </ul>
@@ -185,7 +185,7 @@
                     <label
                         class="form-check-label"
                         for="exampleCheck3"
-                    >Tôi đồng ý với các điêều khoản ở trên</label
+                    >Tôi đồng ý với các điều khoản ở trên</label
                     >
                   </div>
                 </form>
@@ -309,7 +309,7 @@ export default {
       }
 
       const emailData = {
-        email: this.Email, //
+        email: 'dattienvu242@gmail.com', //
         subject: 'Đơn đặt hàng',
         content: `Họ và tên: ${this.FullName}
             Số điện thoại: ${this.PhoneNumber}

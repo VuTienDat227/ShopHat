@@ -32,7 +32,7 @@
                 class="img-fluid" style="width: 50%"/>
               <div class="item-info">
                 <p class="mb-0">{{cate.CateName}}</p>
-                <h4 class="mb-4">Giảm <strong>50% </strong>off</h4>
+                <h4 class="mb-4">Giảm <strong>50% </strong></h4>
 
                 <a
                   href="http://localhost:800/shop"
@@ -84,7 +84,7 @@
                 </a>
               </div>
 
-              <span class="onsale">giảm 50%</span>
+             
               <div class="product-hover-overlay">
                 <a
                   class="text-white"

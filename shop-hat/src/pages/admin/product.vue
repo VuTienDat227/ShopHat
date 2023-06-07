@@ -11,11 +11,11 @@
           <th scope="col">STT</th>
           <th scope="col">Ảnh</th>
           <th scope="col">Tên sản phẩm</th>
-          <th scope="col">Mô tả chi tiết</th>
           <th scope="col">Giá</th>
-          <th scope="col">Số lượng</th>
+          <th scope="col" style="width:4em">Số lượng</th>
           <th scope="col">Loại mũ</th>
           <th scope="col">Hành động</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -25,11 +25,9 @@
             <img :src="product.image" alt="Product Image" style="width: 60px;" />
           </td>
           <td>{{ product.NameProducts }}</td>
-          <td>
-            <div v-html="product.Details"></div>
-          </td>
+          
 
-          <td>{{ formatCurrency(product.Price) }}</td>
+          <td style="width: 4em;">{{ formatCurrency(product.Price) }}</td>
           <td>{{ product.Stock }}</td>
           <td>{{ (product.CateName) }}</td>
           <td>
@@ -130,7 +128,7 @@
       </div>
     </div>
   </div>
-  <!-- chi tieets modal -->
+  <!-- chi tiết modal -->
   <div class="modal fade" id="DetailsProduct" tabindex="-1" role="dialog" aria-labelledby="DetailsProductLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">

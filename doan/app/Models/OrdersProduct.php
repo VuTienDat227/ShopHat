@@ -12,6 +12,8 @@ class OrdersProduct extends Model
     protected $fillable = [
         'id',
         'Status',
+        'StatusForAdmin',
+        'isCheck',
         'user_id',
         'TotalPay'
 
@@ -22,7 +24,7 @@ class OrdersProduct extends Model
     }
     public function user()
     {
-        return $this->belongsTo(UserLogin::class, 'user_id')->select(['id', 'UserName', 'FullName', 'PhoneNumber','Address']);
+        return $this->belongsTo(UserLogin::class, 'user_id')->select(['id', 'UserName', 'FullName', 'PhoneNumber','Address','Email']);
     }
     public function order()
     {
